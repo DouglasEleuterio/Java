@@ -1,12 +1,19 @@
 package lab14;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -41,16 +48,32 @@ public final class Janela extends JFrame {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		jlAgencia = new JLabel("C�digo da Ag�ncia:");
+		jlAgencia = new JLabel("Codigo da Agencia:");
 		jlAgencia.setBounds(10, 10, 110, 18);
 		add(jlAgencia);
 		
-		jlConta = new JLabel("N�mero da conta");
+		jtfAgencia = new JTextField();
+		jtfAgencia.setBounds(125, 10, 50, 20);
+		add(jtfAgencia);
+		
+		jlConta = new JLabel("Numero da conta");
 		jlConta.setBounds(205, 10, 105, 18);
 		add(jlConta);
 		
 		jtfConta.setBounds(315, 10, 60, 20);
 		add(jtfConta);
+		jtfConta.addFocusListener(new FocusAdapter(){
+			@Override
+			public void focusGained(FocusEvent evt) {
+				jtfConta.setBackground(Color.YELLOW);
+			}
+			
+			@Override
+			public void focusLost(FocusEvent evt) {
+				jtfConta.setBackground(Color.WHITE);
+			}
+				
+		});
 		
 		jSeparator01 = new JSeparator();
 		jSeparator01.setBounds(10, 40, 365, 10);
@@ -64,7 +87,7 @@ public final class Janela extends JFrame {
 		jtfNome.setBounds(70, 50, 300, 20);
 		add(jtfNome);
 		
-		jlEndereco = new JLabel ("Endere�o");
+		jlEndereco = new JLabel ("Endereço");
 		jlEndereco.setBounds(10, 75, 60, 18);
 		jlEndereco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		add(jlEndereco);
@@ -120,6 +143,18 @@ public final class Janela extends JFrame {
 		jbFechar.setBounds(225, 190, 100, 23);
 		jbFechar.setMnemonic('F');
 		add(jbFechar);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent evt) {
+				JOptionPane.showMessageDialog(null, "Programação Java OO", "3Way NetWorks",JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent evt){
+				JOptionPane.showMessageDialog(null, "Obrigado por utilizar nosso sistema.","3Way NetWorks",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 	}
 	
 	public static void main(String args[]) {
@@ -143,5 +178,5 @@ public final class Janela extends JFrame {
 		(screen.height - janela.height) / 2);
 	}
 	
-	//finalizar isso
+	
 }
