@@ -36,16 +36,16 @@ public final class Janela extends JFrame {
 
 	public Janela() {
 		setSize(400, 255);
-		setTitle("Linguagem de Programação II");
+		setTitle("Linguagem de Programaï¿½ï¿½o II");
 		setResizable(false);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		jlAgencia = new JLabel("Código da Agência:");
+		jlAgencia = new JLabel("Cï¿½digo da Agï¿½ncia:");
 		jlAgencia.setBounds(10, 10, 110, 18);
 		add(jlAgencia);
 		
-		jlConta = new JLabel("Número da conta");
+		jlConta = new JLabel("Nï¿½mero da conta");
 		jlConta.setBounds(205, 10, 105, 18);
 		add(jlConta);
 		
@@ -64,7 +64,7 @@ public final class Janela extends JFrame {
 		jtfNome.setBounds(70, 50, 300, 20);
 		add(jtfNome);
 		
-		jlEndereco = new JLabel ("Endereço");
+		jlEndereco = new JLabel ("Endereï¿½o");
 		jlEndereco.setBounds(10, 75, 60, 18);
 		jlEndereco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		add(jlEndereco);
@@ -142,4 +142,6 @@ public final class Janela extends JFrame {
 		setLocation((screen.width - janela.width) / 2,
 		(screen.height - janela.height) / 2);
 	}
+	
+	//finish this
 }
