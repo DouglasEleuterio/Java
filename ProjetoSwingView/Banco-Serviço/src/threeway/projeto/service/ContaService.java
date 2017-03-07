@@ -4,34 +4,86 @@ import threeway.projeto.modelo.Conta;
 import threeway.projeto.modelo.Transacao;
 import threeway.projeto.modelo.enums.EnumTipoTransacao;
 import threeway.projeto.modelo.util.UtilData;
+import threeway.projeto.service.Dao.ContaDao;
+import threeway.projeto.service.excecoes.CamposObrigatoriosException;
+import threeway.projeto.service.excecoes.SaldoInsuficienteException;
 
 
 
 public class ContaService {
 
+	private ContaDao dao = new ContaDao();
+	private TransacaoService transacaoService = new TransacaoService();
+	
+	/**
+	* Método responsável por realizar ação de deposito
+	*
+	* @param contaDestino
+	*
+	* @param valor
+	*/
 	public void depositar(Conta contaDestino, double valor) {
-		// credita na conta e debita no caixa
 		contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 		this.historicoTransacao(null, contaDestino, valor, "deposito na conta " +
 		contaDestino.getNumero(), EnumTipoTransacao.DEPOSITO);
 	}
 	
-	public void sacar(Conta contaSaque, double valor) {
-		// debita na conta e credita no caixa
-		contaSaque.setSaldo(contaSaque.getSaldo() - valor);
-		this.historicoTransacao(null, contaSaque, valor, "saque na conta " +
-		contaSaque.getNumero(), EnumTipoTransacao.DEPOSITO);
+	/**
+	* Método responsável por realizar ação de saque caso não tenha saldo suficiente e
+	lançado uma exceção
+	*
+	* @param contaSaque
+	*
+	* @param valor
+	*
+	* @throws SaldoInsuficienteException
+	*/
+	public void sacar(Conta contaSaque, double valor) throws SaldoInsuficienteException {
+		if (contaSaque.getSaldo() - valor >= 0) {
+			contaSaque.setSaldo(contaSaque.getSaldo() - valor);
+			this.historicoTransacao(null, contaSaque, valor, "saque na conta " +
+			contaSaque.getNumero(), EnumTipoTransacao.SAQUE);
+		} else {
+			throw new SaldoInsuficienteException();
+		}
 	}
 	
-	// método sobrecarregado, transfere dados desta conta (this) para outra
-	public boolean transferir(Conta contaSaque, double valor, Conta contaDestino) {
-		return transferir(contaSaque, valor, contaDestino, "transferencia para conta " +
-		contaDestino.getNumero());
+	/**
+	* Método responsável por realizar transferencia entre contas caso não tenha saldo
+	suficiente e lançado uma exceção
+	*
+	* @param contaSaque
+	*
+	* @param valor
+	*
+	* @param contaDestino
+	*
+	* @return boolean true se a transferencia for realizada com sucesso
+	*
+	* @throws SaldoInsuficienteException
+	*/
+	public boolean transferir(Conta contaSaque, double valor, Conta contaDestino) throws SaldoInsuficienteException {
+		return transferir(contaSaque, valor, contaDestino, "transferencia para conta " + contaDestino.getNumero());
 	}
 	
-	// método sobrecarregado, transfere valor desta conta (this) para outra conta e registra a transação
-	
-	public boolean transferir(Conta contaSaque, double valor, Conta contaDestino, String descr) {
+	/**
+	* Método responsável por realizar transferencia entre contas caso não tenha saldo
+	suficiente e lançado uma exceção
+	*
+	* @param contaSaque
+	*
+	* @param valor
+	*
+	* @param contaDestino
+	*
+	* @param descr
+	*
+	* @return boolean true se a transferencia for realizada com sucesso
+	*
+	* @throws SaldoInsuficienteException
+	*
+	*/
+	public boolean transferir(Conta contaSaque, double valor, Conta contaDestino, String descr) throws SaldoInsuficienteException {
 		if (contaSaque.getSaldo() - valor >= 0) {
 			this.debito(contaSaque, valor);
 			this.credito(contaDestino, valor);
@@ -39,27 +91,122 @@ public class ContaService {
 			EnumTipoTransacao.TRANSFERENCIA);
 			return true;
 		} else {
-			return false;
+			throw new SaldoInsuficienteException();
 		}
 	}
 	
-	// subtrai valor do saldo
+	/**
+	* Método responsável por realizar debitos na conta
+	*
+	* @param contaOperacao
+	*
+	* @param valor
+	*/
 	protected void debito(Conta contaOperacao, double valor) {
 		contaOperacao.setSaldo(contaOperacao.getSaldo() - valor);
 	}
 	
-	// adiciona valor ao saldo
+	/**
+	* Método responsável por realizar operações de credito na conta
+	*
+	* @param contaOperacao
+	*
+	* @param valor
+	*/
 	protected void credito(Conta contaOperacao, double valor) {
 		contaOperacao.setSaldo(contaOperacao.getSaldo() + valor);
 	}
 	
-	// cria um objeto transação e registra adicionando no movimento da conta
+	/**
+	* Método responsável por instanciar e gravar historico de transações
+	*
+	* @param contaDebito
+	*
+	* @param contaCredito
+	*
+	* @param valor
+	*
+	* @param descr
+	*
+	* @param tipoTransacao
+	*/
+	
 	protected void historicoTransacao(Conta contaDebito, Conta contaCredito, double valor, String descr, EnumTipoTransacao tipoTransacao) {
-		Transacao transacao = new Transacao(UtilData.data(), contaDebito, contaCredito, valor,
-		descr, tipoTransacao);
-	if (contaDebito != null) {
-		contaDebito.getMovimento().add(transacao);
+		Transacao transacao = new Transacao(UtilData.data(), contaDebito, contaCredito, valor, descr, tipoTransacao);
+		if (contaDebito != null) {
+			contaDebito.getTransacoes().add(transacao);
+		}
+		contaCredito.getTransacoes().add(transacao);
+		transacaoService.salvar(transacao);
 	}
-		contaCredito.getMovimento().add(transacao);
+	
+	/**
+	* Método responsável por salvar entidade conta validando campos obrigatorios
+	*
+	* @param conta
+	*
+	* @throws CamposObrigatoriosException
+	*/
+	public void salvar(Conta conta) throws CamposObrigatoriosException {
+		this.validarCamposObrigatorios(conta);
+		this.getDao().salvar(conta);
+	}
+	
+	/**
+	* Método responsável por validar campos obrigatorios
+	*
+	* @param conta
+	*
+	* @throws CamposObrigatoriosException
+	*/
+	
+	private void validarCamposObrigatorios(Conta conta) throws CamposObrigatoriosException{
+		if (conta == null || conta.getTitular() == null || conta.getNumero() == 0) {
+			throw new CamposObrigatoriosException();
+		}
+	}
+	
+	/**
+	* Método responsável por buscar conta pelo cliente
+	*
+	* @param cliente
+	*
+	* @return Conta
+	*/
+	public Conta buscaContaPorCliente(Cliente cliente) {
+		for (Conta conta : getDao().listar()) {
+			if (conta.getTitular().equals(cliente)) {
+				return conta;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	* Método responsável por buscar conta por numero caso nao exista lança exceção de
+	ContaNaoExisteException
+	*
+	* @param numeroConta
+	*
+	* @return Conta
+	*
+	* @throws ContaNaoExisteException
+	*/
+	public Conta buscaContaPorNumero(int numeroConta) throws ContaNaoExisteException {
+		for (Conta conta : getDao().listar()) {
+			if (conta.getNumero() == numeroConta) {
+				return conta;
+			}
+		}
+		throw new ContaNaoExisteException();
+	}
+	
+	/**
+	* Método responsável por retornar instancia de ContaDao
+	*
+	* @return
+	*/
+	public ContaDao getDao() {
+		return dao;
 	}
 }

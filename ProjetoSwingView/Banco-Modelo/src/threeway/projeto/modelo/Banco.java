@@ -7,7 +7,6 @@ public class Banco {
 	private int numero;
 	private String nome;
 	private Collection<Agencia> agencias;
-
 	//get e set
 
 }

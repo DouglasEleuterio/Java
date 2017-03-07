@@ -1,7 +1,7 @@
 package threeway.projeto.modelo;
 
 
-final public class Cliente extends Pessoa{
+public class Cliente extends Pessoa{
 	private String cpf;
 	private String rg;
 	public Cliente() {
