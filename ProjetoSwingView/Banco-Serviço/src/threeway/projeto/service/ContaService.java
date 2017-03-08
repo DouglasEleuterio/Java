@@ -1,11 +1,13 @@
 package threeway.projeto.service;
 
+import threeway.projeto.modelo.Cliente;
 import threeway.projeto.modelo.Conta;
 import threeway.projeto.modelo.Transacao;
 import threeway.projeto.modelo.enums.EnumTipoTransacao;
 import threeway.projeto.modelo.util.UtilData;
 import threeway.projeto.service.Dao.ContaDao;
 import threeway.projeto.service.excecoes.CamposObrigatoriosException;
+import threeway.projeto.service.excecoes.ContaNaoExisteException;
 import threeway.projeto.service.excecoes.SaldoInsuficienteException;
 
 

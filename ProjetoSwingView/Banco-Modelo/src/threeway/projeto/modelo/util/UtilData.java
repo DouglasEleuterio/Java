@@ -99,4 +99,9 @@ public class UtilData {
 		calendario.setTime(data);
 		calendario.add(Calendar.DAY_OF_MONTH, numDias);
 	}
+
+	public static String formataData(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

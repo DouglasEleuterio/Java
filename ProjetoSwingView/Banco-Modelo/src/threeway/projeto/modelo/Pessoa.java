@@ -30,6 +30,14 @@ public class Pessoa extends EntidadeBanco{
 	public String getNome() {
 		return nome;
 	}
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setEndereco(String text) {
+		this.endereco = text;
+		
+	}
 	
 	@Override
 	public Long getIdentificador() {

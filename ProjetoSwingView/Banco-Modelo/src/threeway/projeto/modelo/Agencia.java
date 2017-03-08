@@ -42,4 +42,17 @@ public class Agencia {
 	public String toString() {
 		return nome;
 	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+		
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
 }

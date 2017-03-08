@@ -39,4 +39,5 @@ public class Cliente extends Pessoa{
 	public String getRg(){
 		return rg;
 	}
+
 }

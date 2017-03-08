@@ -3,16 +3,20 @@ package threeway.projeto.modelo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
+import threeway.projeto.modelo.enums.EnumTipoConta;
 import threeway.projeto.modelo.util.UtilData;
 
-public class Conta {
+public class Conta extends EntidadeBanco{
 	private int numero;
 	private Cliente titular;
 	private Date dataAbertura;
 	private double saldo;
 	private ArrayList movimento;
+	private Long identificador;
+	private EnumTipoConta tipoConta;
 	
 	// construtor padrão da classe Conta que define a data de criação da conta e inicializa o array de transacao
 	
@@ -22,11 +26,12 @@ public class Conta {
 	}
 	
 	// construtor com dois parametros
-	public Conta( Cliente nome, int nconta ) {
+	public Conta( Cliente nome, int nconta , EnumTipoConta tConta) {
 		this();
 		numero = nconta;
 		titular = nome;
 		saldo = 0.0; // Conta em reais e zerada
+		tipoConta = tConta;
 	}
 	
 	// INSIRA OS MÉTODOS GETTERS E SETTERS
@@ -42,14 +47,14 @@ public class Conta {
 		return titular;
 	}
 	
-	public double getSaldo(){
+	public Double getSaldo(){
 		return saldo;
 	}
 	public void setSaldo(double value){
 		this.saldo = value;
 	}
 	
-	public int getNumero(){
+	public Integer getNumero(){
 		return numero;
 	}
 	public void setNumero(int value){
@@ -84,5 +89,14 @@ public class Conta {
 	@Override
 	public String toString() {
 		return getNumero() + "-" + getTitular().getNome();
+	}
+
+	public ArrayList getTransacoes() {
+		return movimento;
+	}
+
+	@Override
+	public Long getIdentificador() {
+		return identificador;
 	}
 }

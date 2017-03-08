@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import threeway.projeto.modelo.Cliente;
 import threeway.projeto.modelo.Conta;
 
 public class ContaDao implements Dao<Conta> {
