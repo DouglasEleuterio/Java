@@ -1,7 +1,7 @@
 package threeway.projeto.modelo;
 
 
-public class Cliente extends Pessoa{
+public class Cliente extends Pessoa implements Comparable<Cliente>{
 	private String cpf;
 	private String rg;
 	public Cliente() {
@@ -39,5 +39,18 @@ public class Cliente extends Pessoa{
 	public String getRg(){
 		return rg;
 	}
+
+	@Override 
+    public int compareTo(Cliente outroCliente) {
+		if(this.rg != null && outroCliente.rg != null){
+	        if (Integer.parseInt(this.rg) < Integer.parseInt(outroCliente.rg)) {
+	            return -1;
+	        }
+	        if (Integer.parseInt(this.rg) > Integer.parseInt(outroCliente.rg)) {
+	            return 1;
+	        }
+		}
+        return 0;
+    }
 
 }

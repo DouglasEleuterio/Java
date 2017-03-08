@@ -244,7 +244,7 @@ public class ManterCliente extends JInternalFrame {
 		DefaultTableModel dtm = (DefaultTableModel) tableClientes.getModel();
 		Cliente cli = new Cliente();
 		ArrayList<Cliente> listaCliente = service.listarTodosClientes();
-		Collections.sort((List)listaCliente);
+		Collections.sort(listaCliente);
 		Iterator<Cliente> it = listaCliente.iterator();
 		while (it.hasNext()) {
 			cli = it.next();

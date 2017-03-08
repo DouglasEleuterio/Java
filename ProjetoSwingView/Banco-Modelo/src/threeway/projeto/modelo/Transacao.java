@@ -7,7 +7,7 @@ import java.util.Date;
 import threeway.projeto.modelo.enums.EnumTipoTransacao;
 import threeway.projeto.modelo.util.UtilData;
 
-public class Transacao extends EntidadeBanco{
+public class Transacao extends EntidadeBanco {
 	private Date data;
 	private Conta contaDebito;
 	private Conta contaCredito;
