@@ -184,7 +184,7 @@ public class ManterCliente extends JInternalFrame {
 		btnAtualizar.setEnabled(clienteSelecionado);
 		btnSalvar.setEnabled(!clienteSelecionado);
 		ftfCpf.setEditable(!clienteSelecionado);
-		Inicial.modificaBotaoOperacoes(clienteSelecionado);
+		Inicial.modificaBotaoOperacoes(clienteSelecionado,cliente);
 	}
 
 	/**

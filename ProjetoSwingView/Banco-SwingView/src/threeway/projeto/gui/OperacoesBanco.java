@@ -184,7 +184,7 @@ public class OperacoesBanco extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				dialogTransferencia = new DialogTransferencia(contaService,contaCliente);
 				dialogTransferencia.setLocationRelativeTo(null);
-				dialogTransferencia.show();
+				dialogTransferencia.setVisible(true);
 			}
 		});
 	}
@@ -247,7 +247,7 @@ public class OperacoesBanco extends JInternalFrame {
 				try {
 					dialogAbrirConta = new DialogAbrirConta(contaService, clienteSelecionado);
 					dialogAbrirConta.setLocationRelativeTo(null);
-					dialogAbrirConta.show();
+					dialogAbrirConta.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}

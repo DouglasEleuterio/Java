@@ -1,6 +1,7 @@
 package threeway.projeto.gui;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ import threeway.projeto.service.AgenciaService;
 import threeway.projeto.service.ClienteService;
 import threeway.projeto.service.ContaService;
 
-public class Inicial extends JInternalFrame{
+public class Inicial {
 
 	private ClienteService clienteService = new ClienteService();
 	private ContaService contaService = new ContaService();
@@ -33,6 +34,7 @@ public class Inicial extends JInternalFrame{
 	private JButton btnManterClientes;
 	private static JButton btnOperaesBancarias;
 	private static Cliente clienteSelecionado;
+	
 	
 	/**
 	* Responsável pela criação de novas instâncias desta classe.
@@ -48,7 +50,7 @@ public class Inicial extends JInternalFrame{
 	* Método responsável por inicializar todos os componentes swing deste frame
 	*
 	*/
-	private void initialize() {
+	private void initialize() {				
 		frmGereciamentoDeBanco = new JFrame();
 		frmGereciamentoDeBanco.setResizable(false);
 		frmGereciamentoDeBanco.setTitle("Sistema de Gereciamento de Banco");
@@ -147,9 +149,15 @@ public class Inicial extends JInternalFrame{
 		newFrame.show();
 	}
 
-	public static void modificaBotaoOperacoes(Boolean clienteSelecionado) {
-		btnOperaesBancarias.setEnabled(clienteSelecionado);
+	public static void modificaBotaoOperacoes(Boolean selecionado, Cliente cliente) {
+		btnOperaesBancarias.setEnabled(selecionado);
+		clienteSelecionado = cliente;
 		
 	}
-
+	
+	public static void main(String[] args) {
+		
+					Inicial window = new Inicial();
+					window.frmGereciamentoDeBanco.setVisible(true);
+	}
 }
