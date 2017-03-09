@@ -3,7 +3,9 @@ package threeway.projeto.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import threeway.projeto.modelo.Cliente;
 import threeway.projeto.modelo.Conta;
@@ -22,18 +25,21 @@ import threeway.projeto.modelo.enums.EnumTipoConta;
 import threeway.projeto.modelo.util.UtilData;
 import threeway.projeto.service.ContaService;
 import threeway.projeto.service.excecoes.CamposObrigatoriosException;
+import threeway.projeto.service.excecoes.NumeroDeContaJaExistenteException;
+import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
 
 public class DialogAbrirConta extends JDialog {
 	private ContaService service;
 	private Cliente clienteSelecionado;
 	private Conta conta;
-	private JTextField tfDtAbertura;
 	private JTextField tfSaldo;
 	private JComboBox<EnumTipoConta> comboTipoConta;
 	private JTextField tfNumero;
 	private JButton btnCancelar;
 	private JButton btnSalvar;
 	private JLabel lblCamposObrigatrios;
+	private JTextField txDtAbertura;
 	
 	/**
 	* Responsável pela criação de novas instâncias desta classe.
@@ -49,8 +55,8 @@ public class DialogAbrirConta extends JDialog {
 		this.clienteSelecionado = cliente;
 		this.conta = new Conta();
 		initialize();
-		tfDtAbertura.setText(UtilData.formataData(new Date()));
 		tfSaldo.setText("0");
+		
 		caregaComboTiposConta();
 		acaoBotaoCancelar();
 		acaoBotaoSalvar();
@@ -64,66 +70,64 @@ public class DialogAbrirConta extends JDialog {
 	*/
 	private void initialize() throws ParseException {
 
-	setModal(true);
-	this.setLocationRelativeTo(null);
-
-	setTitle("Abertura de Conta");
-	setBounds(100, 100, 300, 250);
-	getContentPane().setLayout(null);
-
-	JLabel lblNumero = new JLabel("Numero *:");
-	lblNumero.setBounds(10, 39, 80, 14);
-	getContentPane().add(lblNumero);
-
-	JLabel lblDataDeAbertura = new JLabel("Abertura:");
-	lblDataDeAbertura.setBounds(10, 11, 80, 14);
-	getContentPane().add(lblDataDeAbertura);
-
-	JLabel lblSaldoInicial = new JLabel("Saldo Inicial:");
-	lblSaldoInicial.setBounds(10, 67, 80, 14);
-	getContentPane().add(lblSaldoInicial);
-
-	JLabel lblTipoDeConta = new JLabel("Tipo de Conta *:");
-	lblTipoDeConta.setBounds(10, 95, 80, 14);
-	getContentPane().add(lblTipoDeConta);
-
-	tfDtAbertura = new JTextField();
-	tfDtAbertura.setEditable(false);
-	tfDtAbertura.setBounds(110, 8, 164, 20);
-	getContentPane().add(tfDtAbertura);
-	tfDtAbertura.setColumns(10);
+		setModal(true);
+		this.setLocationRelativeTo(null);
 	
-	btnCancelar = new JButton("Cancelar");
-	btnCancelar.setBounds(175, 166, 99, 35);
-	getContentPane().add(btnCancelar);
+		setTitle("Abertura de Conta");
+		setBounds(100, 100, 300, 250);
+		getContentPane().setLayout(null);
+	
+		JLabel lblNumero = new JLabel("Numero *:");
+		lblNumero.setBounds(10, 39, 80, 14);
+		getContentPane().add(lblNumero);
+	
+		JLabel lblDataDeAbertura = new JLabel("Abertura:");
+		lblDataDeAbertura.setBounds(10, 11, 80, 14);
+		getContentPane().add(lblDataDeAbertura);
+	
+		JLabel lblSaldoInicial = new JLabel("Saldo Inicial:");
+		lblSaldoInicial.setBounds(10, 67, 80, 14);
+		getContentPane().add(lblSaldoInicial);
+	
+		JLabel lblTipoDeConta = new JLabel("Tipo de Conta *:");
+		lblTipoDeConta.setBounds(10, 95, 80, 14);
+		getContentPane().add(lblTipoDeConta);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(175, 166, 99, 35);
+		getContentPane().add(btnCancelar);
+	
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setBounds(55, 166, 99, 35);
+		getContentPane().add(btnSalvar);
+	
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 153, 264, 2);
+		getContentPane().add(separator);
+	
+		tfNumero = new JTextField();
+		tfNumero.setBounds(110, 36, 75, 20);
+		getContentPane().add(tfNumero);
+	
+		tfSaldo = new JTextField();
+		tfSaldo.setBounds(110, 64, 75, 20);
+		getContentPane().add(tfSaldo);
+		tfSaldo.setColumns(10);
+	
+		lblCamposObrigatrios = new JLabel("(*) Campos Obrigatórios");
+		lblCamposObrigatrios.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCamposObrigatrios.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblCamposObrigatrios.setBounds(138, 120, 136, 24);
+		getContentPane().add(lblCamposObrigatrios);
 
-	btnSalvar = new JButton("Salvar");
-	btnSalvar.setBounds(55, 166, 99, 35);
-	getContentPane().add(btnSalvar);
-
-	JSeparator separator = new JSeparator();
-	separator.setBounds(10, 153, 264, 2);
-	getContentPane().add(separator);
-
-	comboTipoConta = new JComboBox<EnumTipoConta>();
-	comboTipoConta.setBounds(110, 92, 164, 20);
-	getContentPane().add(comboTipoConta);
-
-	tfNumero = new JTextField();
-	tfNumero.setBounds(110, 36, 75, 20);
-	getContentPane().add(tfNumero);
-
-	tfSaldo = new JTextField();
-	tfSaldo.setBounds(110, 64, 75, 20);
-	getContentPane().add(tfSaldo);
-	tfSaldo.setColumns(10);
-
-	lblCamposObrigatrios = new JLabel("(*) Campos Obrigatórios");
-	lblCamposObrigatrios.setHorizontalAlignment(SwingConstants.RIGHT);
-	lblCamposObrigatrios.setFont(new Font("Tahoma", Font.PLAIN, 11));
-	lblCamposObrigatrios.setBounds(138, 120, 136, 24);
-	getContentPane().add(lblCamposObrigatrios);
-
+		
+		txDtAbertura = new JTextField();
+		txDtAbertura.setBounds(110, 9, 170, 19);
+		txDtAbertura.setEnabled(false);
+		Date date = new Date();
+		txDtAbertura.setText(UtilData.formataData(date));
+		getContentPane().add(txDtAbertura);
+		txDtAbertura.setColumns(10);
 	}
 	
 	/**
@@ -142,6 +146,8 @@ public class DialogAbrirConta extends JDialog {
 					OperacoesBanco.defineEnabledBotoes();
 					setVisible(Boolean.FALSE);
 				} catch (CamposObrigatoriosException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}catch (NumeroDeContaJaExistenteException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
 				} catch (Exception ex1) {
 					JOptionPane.showMessageDialog(null, "Algum campo pode ter sido preenchido inválido. Verifique e tente novamente!");
@@ -183,5 +189,7 @@ public class DialogAbrirConta extends JDialog {
 		EnumTipoConta tipoConta = (EnumTipoConta) comboTipoConta.getSelectedItem();
 		this.conta = new Conta(this.clienteSelecionado, Integer.parseInt(tfNumero.getText()), tipoConta);
 		this.conta.setSaldo(Double.parseDouble(tfSaldo.getText()));
+		Date date = new Date();
+		this.conta.setDataAbertura(date);
 	}
 }

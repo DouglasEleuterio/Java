@@ -7,7 +7,7 @@ import java.util.Date;
 import threeway.projeto.modelo.enums.EnumTipoTransacao;
 import threeway.projeto.modelo.util.UtilData;
 
-public class Transacao extends EntidadeBanco {
+public class Transacao extends EntidadeBanco implements Comparable<Transacao>{
 	private Date data;
 	private Conta contaDebito;
 	private Conta contaCredito;
@@ -65,4 +65,17 @@ public class Transacao extends EntidadeBanco {
 	public Long getIdentificador() {
 		return identificador;
 	}
+	
+	@Override 
+    public int compareTo(Transacao outraTransacao) {
+		if(this.data != null && outraTransacao.data != null){
+	        if (this.data.getTime() < outraTransacao.data.getTime()) {
+	            return -1;
+	        }
+	        if (this.data.getTime() > outraTransacao.data.getTime()) {
+	            return 1;
+	        }
+		}
+        return 0;
+    }
 }

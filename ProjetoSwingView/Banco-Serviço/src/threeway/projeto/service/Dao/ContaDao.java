@@ -36,4 +36,10 @@ public class ContaDao implements Dao<Conta> {
 	public Collection<Conta> listar() {
 		return contasMemoria;
 	}
+
+	@Override
+	public void reordenar(Collection<Conta> E) {
+		contasMemoria = E;
+		
+	}
 }

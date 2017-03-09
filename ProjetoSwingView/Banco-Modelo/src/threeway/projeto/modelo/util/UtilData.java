@@ -1,5 +1,7 @@
 package threeway.projeto.modelo.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -101,7 +103,7 @@ public class UtilData {
 	}
 
 	public static String formataData(Date date) {
-		// TODO Auto-generated method stub
-		return null;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss");
+		return dateFormat.format(date);
 	}
 }

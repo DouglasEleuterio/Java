@@ -8,6 +8,7 @@ import threeway.projeto.modelo.util.UtilData;
 import threeway.projeto.service.Dao.ContaDao;
 import threeway.projeto.service.excecoes.CamposObrigatoriosException;
 import threeway.projeto.service.excecoes.ContaNaoExisteException;
+import threeway.projeto.service.excecoes.NumeroDeContaJaExistenteException;
 import threeway.projeto.service.excecoes.SaldoInsuficienteException;
 
 
@@ -149,9 +150,18 @@ public class ContaService {
 	*
 	* @throws CamposObrigatoriosException
 	*/
-	public void salvar(Conta conta) throws CamposObrigatoriosException {
+	public void salvar(Conta conta) throws CamposObrigatoriosException, NumeroDeContaJaExistenteException {
 		this.validarCamposObrigatorios(conta);
+		this.validarNumeroDeConta(conta);
 		this.getDao().salvar(conta);
+	}
+	
+	private void validarNumeroDeConta(Conta conta) throws NumeroDeContaJaExistenteException{
+		for(Conta entidade : getDao().listar()){
+			if(entidade.getNumero().equals(conta.getNumero())){
+				throw new NumeroDeContaJaExistenteException();
+			}
+		}
 	}
 	
 	/**

@@ -302,7 +302,7 @@ public class OperacoesBanco extends JInternalFrame {
 		if (contaCliente != null) {
 			listaTransacoes = new ArrayList<Transacao>(contaCliente.getTransacoes());
 		}
-		Collections.sort((List)listaTransacoes);
+		Collections.sort(listaTransacoes);
 		Iterator<Transacao> it = listaTransacoes.iterator();
 		while (it.hasNext()) {
 			Transacao tr = it.next();

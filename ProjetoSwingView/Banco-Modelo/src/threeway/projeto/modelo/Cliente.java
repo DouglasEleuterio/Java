@@ -28,10 +28,10 @@ public class Cliente extends Pessoa implements Comparable<Cliente>{
 	
 	//get e set
 	public void setCpf(String value){
-		this.cpf = cpf;
+		this.cpf = value;
 	}
 	public void setRg(String value){
-		this.rg = rg;
+		this.rg = value;
 	}
 	public String getCpf(){
 		return cpf;

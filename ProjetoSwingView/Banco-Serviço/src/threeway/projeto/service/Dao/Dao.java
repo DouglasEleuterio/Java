@@ -51,4 +51,6 @@ public interface Dao<E extends Entidade> {
 	* @return Collection<E>
 	*/
 	Collection<E> listar();
+	
+	void reordenar(final Collection<E> E);
 }

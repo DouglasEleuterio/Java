@@ -35,4 +35,10 @@ public class TransacaoDao implements Dao<Transacao> {
 	public Collection<Transacao> listar() {
 		return transacoesMemoria;
 	}
+
+	@Override
+	public void reordenar(Collection<Transacao> E) {
+		transacoesMemoria = E;
+		
+	}
 }

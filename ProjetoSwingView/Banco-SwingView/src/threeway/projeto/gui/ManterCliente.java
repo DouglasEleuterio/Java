@@ -23,9 +23,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import com.sun.javafx.font.freetype.FTFactory;
+
 import threeway.projeto.modelo.Cliente;
 import threeway.projeto.service.ClienteService;
 import threeway.projeto.service.excecoes.CamposObrigatoriosException;
+import threeway.projeto.service.excecoes.RgJaCadastradoException;
+import threeway.projeto.service.excecoes.CPFJaCadastradoException;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -116,7 +120,7 @@ public class ManterCliente extends JInternalFrame {
 		lblEndereo.setBounds(10, 52, 91, 14);
 		panelCad.add(lblEndereo);
 	
-		JLabel lblRegistroGeral = new JLabel("Registro Geral:");
+		JLabel lblRegistroGeral = new JLabel("Registro Geral *:");
 		lblRegistroGeral.setBounds(10, 80, 91, 14);
 		panelCad.add(lblRegistroGeral);
 	
@@ -184,6 +188,7 @@ public class ManterCliente extends JInternalFrame {
 		btnAtualizar.setEnabled(clienteSelecionado);
 		btnSalvar.setEnabled(!clienteSelecionado);
 		ftfCpf.setEditable(!clienteSelecionado);
+		tfRg.setEditable(!clienteSelecionado);
 		Inicial.modificaBotaoOperacoes(clienteSelecionado,cliente);
 	}
 
@@ -238,8 +243,7 @@ public class ManterCliente extends JInternalFrame {
 	*
 	*/
 	private void atualizaDadosTabela() {
-		tableClientes.setModel(new DefaultTableModel(new Object[][] {},
-		retornaNomeColunas()));
+		tableClientes.setModel(new DefaultTableModel(new Object[][] {},retornaNomeColunas()));
 		tableClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel dtm = (DefaultTableModel) tableClientes.getModel();
 		Cliente cli = new Cliente();
@@ -251,6 +255,7 @@ public class ManterCliente extends JInternalFrame {
 			dtm.addRow(new Object[] { cli.getNome(), cli.getEndereco(), cli.getTelefone(),
 			cli.getRg(), cli.getCpf() });
 		}
+		service.getDao().reordenar(listaCliente);
 	}
 
 	/**
@@ -296,6 +301,10 @@ public class ManterCliente extends JInternalFrame {
 					limpar();
 				} catch (CamposObrigatoriosException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}catch (CPFJaCadastradoException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				} catch (RgJaCadastradoException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				} finally {
 					atualizaDadosTabela();
 				}
@@ -330,11 +339,14 @@ public class ManterCliente extends JInternalFrame {
 				try {
 					preencheClienteComCampos();
 					service.atualizar(cliente);
+					service.reordenaTable();
 					limpar();
 					clienteSelecionado = Boolean.FALSE;
 					defineEnabledBotoes();
 					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
 				} catch (CamposObrigatoriosException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}catch (RgJaCadastradoException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
 				} finally {
 					atualizaDadosTabela();

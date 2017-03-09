@@ -39,6 +39,10 @@ public class Conta extends EntidadeBanco{
 		return dataAbertura;
 	}
 	
+	public void setDataAbertura(Date data){
+		dataAbertura = data;
+	}
+	
 	public ArrayList getMovimento(){
 		return movimento;
 	}

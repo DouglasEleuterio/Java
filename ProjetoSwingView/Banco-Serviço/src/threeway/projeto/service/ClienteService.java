@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import threeway.projeto.modelo.Cliente;
 import threeway.projeto.service.Dao.ClienteDao;
 import threeway.projeto.service.excecoes.CamposObrigatoriosException;
+import threeway.projeto.service.excecoes.RgJaCadastradoException;
+import threeway.projeto.service.excecoes.CPFJaCadastradoException;
 
 public class ClienteService {
 
@@ -17,7 +19,7 @@ public class ClienteService {
 	*
 	* @throws CamposObrigatoriosException
 	*/
-	public void atualizar(Cliente cliente) throws CamposObrigatoriosException {
+	public void atualizar(Cliente cliente) throws CamposObrigatoriosException , RgJaCadastradoException{
 		this.validarCamposObrigatorios(cliente);
 		this.getDao().alterar(cliente);
 	}
@@ -48,8 +50,10 @@ public class ClienteService {
 	*
 	* @throws CamposObrigatoriosException
 	*/
-	public void salvar(Cliente cliente) throws CamposObrigatoriosException {
+	public void salvar(Cliente cliente) throws CamposObrigatoriosException, CPFJaCadastradoException, RgJaCadastradoException{
 		this.validarCamposObrigatorios(cliente);
+		this.validarCpfRepetido(cliente);
+		this.validarRgRepetido(cliente);
 		this.getDao().salvar(cliente);
 	}
 	
@@ -60,11 +64,24 @@ public class ClienteService {
 	*
 	* @throws CamposObrigatoriosException
 	*/
-	private void validarCamposObrigatorios(Cliente cliente) throws
-		CamposObrigatoriosException {
-		if (cliente == null || cliente.getNome().equals("") ||
-			cliente.getCpf().replace("-", "").replace(".", "").trim().equals("")) {
+	private void validarCamposObrigatorios(Cliente cliente) throws CamposObrigatoriosException {
+		if (cliente == null || cliente.getNome().equals("") || cliente.getCpf().replace("-", "").replace(".", "").trim().equals("")) {
 			throw new CamposObrigatoriosException();
+		}
+	}
+	
+	private void validarCpfRepetido(Cliente cliente) throws CPFJaCadastradoException{
+		for(Cliente entidade : getDao().listar()){
+			if(entidade.getCpf().equals(cliente.getCpf())){
+				throw new CPFJaCadastradoException();
+			}
+		}
+	}
+	private void validarRgRepetido(Cliente cliente) throws RgJaCadastradoException{
+		for(Cliente entidade : getDao().listar()){
+			if(entidade.getRg().equals(cliente.getRg())){
+				throw new RgJaCadastradoException();
+			}
 		}
 	}
 	
@@ -75,5 +92,9 @@ public class ClienteService {
 	*/
 	public ClienteDao getDao() {
 		return dao;
+	}
+	
+	public void reordenaTable(){
+		getDao().reordenar(getDao().listar());
 	}
 }
