@@ -88,10 +88,6 @@ public class DialogAbrirConta extends JDialog {
 		JLabel lblSaldoInicial = new JLabel("Saldo Inicial:");
 		lblSaldoInicial.setBounds(10, 67, 80, 14);
 		getContentPane().add(lblSaldoInicial);
-	
-		JLabel lblTipoDeConta = new JLabel("Tipo de Conta *:");
-		lblTipoDeConta.setBounds(10, 95, 80, 14);
-		getContentPane().add(lblTipoDeConta);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(175, 166, 99, 35);
@@ -186,8 +182,7 @@ public class DialogAbrirConta extends JDialog {
 	* @throws Exception
 	*/
 	public void montaObjetoConta() throws Exception {
-		EnumTipoConta tipoConta = (EnumTipoConta) comboTipoConta.getSelectedItem();
-		this.conta = new Conta(this.clienteSelecionado, Integer.parseInt(tfNumero.getText()), tipoConta);
+		this.conta = new Conta(this.clienteSelecionado, Integer.parseInt(tfNumero.getText()));
 		this.conta.setSaldo(Double.parseDouble(tfSaldo.getText()));
 		Date date = new Date();
 		this.conta.setDataAbertura(date);

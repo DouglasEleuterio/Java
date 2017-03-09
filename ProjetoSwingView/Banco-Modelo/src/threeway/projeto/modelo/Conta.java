@@ -16,7 +16,6 @@ public class Conta extends EntidadeBanco{
 	private double saldo;
 	private ArrayList movimento;
 	private Long identificador;
-	private EnumTipoConta tipoConta;
 	
 	// construtor padrão da classe Conta que define a data de criação da conta e inicializa o array de transacao
 	
@@ -26,12 +25,11 @@ public class Conta extends EntidadeBanco{
 	}
 	
 	// construtor com dois parametros
-	public Conta( Cliente nome, int nconta , EnumTipoConta tConta) {
+	public Conta( Cliente nome, int nconta) {
 		this();
 		numero = nconta;
 		titular = nome;
 		saldo = 0.0; // Conta em reais e zerada
-		tipoConta = tConta;
 	}
 	
 	// INSIRA OS MÉTODOS GETTERS E SETTERS
