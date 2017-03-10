@@ -1,6 +1,6 @@
 package lab13;
 
-public class ThreadNaoSincronizada {
+public class ThreadSincronizada {
 
 	public static void main(String[] args) {
 	
