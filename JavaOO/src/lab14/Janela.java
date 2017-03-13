@@ -38,7 +38,9 @@ public final class Janela extends JFrame {
 	private JTextField jtfTelefone;
 	private JLabel jlCpf;
 	private JTextField jtfCpf;
+	private JLabel jlCorrente;
 	private JRadioButton jrbCorrente;
+	private JLabel jlPoupanca;
 	private JRadioButton jrbPoupanca;
 	private ButtonGroup bgContas;
 	private JSeparator jSeparator02;
@@ -55,10 +57,14 @@ public final class Janela extends JFrame {
 		
 		jlAgencia = new JLabel("Codigo da Agencia:");
 		jlAgencia.setBounds(10, 10, 110, 18);
-		add(jlAgencia);
+		getContentPane().add(jlAgencia);
 		
-		jtfAgencia = new JTextField();
-		jtfAgencia.setBounds(125, 10, 50, 20);
+		
+		try {
+			jtfAgencia = new JFormattedTextField(new MaskFormatter("####-#"));
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
 		jtfAgencia.addFocusListener(new FocusAdapter(){
 			@Override
 			public void focusGained(FocusEvent evt) {
@@ -70,19 +76,19 @@ public final class Janela extends JFrame {
 				jtfAgencia.setBackground(Color.WHITE);
 			}
 		});
-		try {
-			jtfAgencia = new JFormattedTextField(new MaskFormatter("####-#"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		add(jtfAgencia);
+		jtfAgencia.setBounds(125,10,50,20);
+		getContentPane().add(jtfAgencia);
 		
 		
 		jlConta = new JLabel("Numero da conta");
 		jlConta.setBounds(205, 10, 105, 18);
-		add(jlConta);
+		getContentPane().add(jlConta);
 		
-		jtfConta = new JTextField();
+		try {
+			jtfConta = new JFormattedTextField(new MaskFormatter("#####-#"));
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
 		jtfConta.setBounds(315, 10, 60, 20);
 		jtfConta.addFocusListener(new FocusAdapter(){
 			@Override
@@ -95,21 +101,16 @@ public final class Janela extends JFrame {
 				jtfConta.setBackground(Color.WHITE);
 			}
 		});
-		try {
-			jtfConta = new JFormattedTextField(new MaskFormatter("#####-#"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		add(jtfConta);
+		getContentPane().add(jtfConta);
 		
 		jSeparator01 = new JSeparator();
 		jSeparator01.setBounds(10, 40, 365, 10);
-		add(jSeparator01);
+		getContentPane().add(jSeparator01);
 		
 		jlNome = new JLabel("Nome:");
 		jlNome.setBounds(10, 50, 60, 18);
 		jlNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-		add(jlNome);
+		getContentPane().add(jlNome);
 		
 		jtfNome = new JTextField();
 		jtfNome.setBounds(70, 50, 300, 20);
@@ -124,12 +125,12 @@ public final class Janela extends JFrame {
 				jtfNome.setBackground(Color.WHITE);
 			}
 		});
-		add(jtfNome);
+		getContentPane().add(jtfNome);
 		
 		jlEndereco = new JLabel ("Endereço");
 		jlEndereco.setBounds(10, 75, 60, 18);
 		jlEndereco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-		add(jlEndereco);
+		getContentPane().add(jlEndereco);
 		
 		jtfEndereco = new JTextField();
 		jtfEndereco.setBounds(75, 75, 300, 20);
@@ -144,14 +145,18 @@ public final class Janela extends JFrame {
 				jtfEndereco.setBackground(Color.WHITE);
 			}
 		});
-		add(jtfEndereco);
+		getContentPane().add(jtfEndereco);
 		
 		jlTelefone = new JLabel ("Telefone:");
 		jlTelefone.setBounds(10, 100, 60, 18);
 		jlTelefone.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-		add(jlTelefone);
+		getContentPane().add(jlTelefone);
 		
-		jtfTelefone = new JTextField();
+		try {
+			jtfTelefone = new JFormattedTextField(new MaskFormatter("(0xx##) ####-####"));
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
 		jtfTelefone.setBounds(75, 100, 300, 20);
 		jtfTelefone.addFocusListener(new FocusAdapter(){
 			@Override
@@ -164,19 +169,18 @@ public final class Janela extends JFrame {
 				jtfTelefone.setBackground(Color.WHITE);
 			}
 		});
-		try {
-			jtfTelefone = new JFormattedTextField(new MaskFormatter("(0xx##)####-####"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		add(jtfTelefone);
+		getContentPane().add(jtfTelefone);
 		
 		jlCpf = new JLabel ("CPF:");
 		jlCpf.setBounds(10, 125, 60, 18);
 		jlCpf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-		add(jlCpf);
+		getContentPane().add(jlCpf);
 		
-		jtfCpf = new JTextField();
+		try {
+			jtfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
 		jtfCpf.setBounds(75, 125, 300, 20);
 		jtfCpf.addFocusListener(new FocusAdapter(){
 			@Override
@@ -189,24 +193,27 @@ public final class Janela extends JFrame {
 				jtfCpf.setBackground(Color.WHITE);
 			}
 		});
-		try {
-			jtfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		add(jtfCpf);
+		getContentPane().add(jtfCpf);
+		
+		jlCorrente = new JLabel ("Conta Corrente:");
+		jlCorrente.setBounds(120, 150, 100, 18);
+		getContentPane().add(jlCorrente);
 		
 		jrbCorrente  = new JRadioButton();
 		jrbCorrente.setBounds(100, 150, 111, 20);
 		jrbCorrente.setMnemonic('C');
 		jrbCorrente.setSelected(true);
-		add(jrbCorrente);
+		getContentPane().add(jrbCorrente);
+		
+		jlPoupanca = new JLabel ("Conta Poupanca:");
+		jlPoupanca.setBounds(245, 150, 100, 18);
+		getContentPane().add(jlPoupanca);
 		
 		jrbPoupanca = new JRadioButton();
 		jrbPoupanca.setBounds(225, 150, 118, 20);
 		jrbPoupanca.setMnemonic('P');
 		jrbPoupanca.setSelected(true);
-		add(jrbPoupanca);
+		getContentPane().add(jrbPoupanca);
 		
 		bgContas = new ButtonGroup();
 		bgContas.add(jrbCorrente);
@@ -214,24 +221,40 @@ public final class Janela extends JFrame {
 		
 		jSeparator02 = new JSeparator();
 		jSeparator02.setBounds(10, 180, 365, 10);
-		add(jSeparator02);
+		getContentPane().add(jSeparator02);
 
 		jbConsultar = new JButton("Consultar");
 		jbConsultar.setBounds(45, 190, 100, 23);
 		jbConsultar.setMnemonic('S');
-		add(jbConsultar);
+		jbConsultar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+						
+				if(jtfAgencia.getText().equals("    - ") || jtfConta.getText().equals("     - ")){
+					JOptionPane.showMessageDialog(null, "E' necessário informar a agência e a conta", "3Way NetWorks", JOptionPane.INFORMATION_MESSAGE);
+				}
+						
+			}
+		});
+		getContentPane().add(jbConsultar);
 		
 		jbAtualizar = new JButton("Atualizar");
 		jbAtualizar.setBounds(150, 190, 100, 23);
 		jbAtualizar.setMnemonic('A');
 		jbAtualizar.setEnabled(false);
-		add(jbAtualizar);
+		getContentPane().add(jbAtualizar);
 		
 		jbFechar = new JButton("Fechar");
 		jbFechar.setBounds(255, 190, 100, 23);
 		jbFechar.setMnemonic('F');
-		add(jbFechar);
-		
+		jbFechar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		getContentPane().add(jbFechar);
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent evt) {
