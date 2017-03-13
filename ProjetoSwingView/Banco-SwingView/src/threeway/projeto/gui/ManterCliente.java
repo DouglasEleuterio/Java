@@ -62,19 +62,12 @@ public class ManterCliente extends JInternalFrame {
 	private Cliente cliente = new Cliente();
 	
 	/**
-
 	* Responsável pela criação de novas instâncias desta classe.
-
 	*
-
 	* @param service
-
 	*
-
 	* @throws ParseException
-
 	*/
-
 	public ManterCliente( ClienteService service ) throws ParseException {
 		this.service = service;
 		initialize();

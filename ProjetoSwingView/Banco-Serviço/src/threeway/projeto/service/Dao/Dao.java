@@ -52,5 +52,10 @@ public interface Dao<E extends Entidade> {
 	*/
 	Collection<E> listar();
 	
+	/**
+	* Reordena todos os objetos da entidade.
+	*
+	* @return Collection<E>
+	*/
 	void reordenar(final Collection<E> E);
 }
