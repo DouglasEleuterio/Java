@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;threeway.projeto.service.excecoes.ValorJaExistenteException&apos; to &apos;CPFJaCadastradoException&apos;&#x0A;- Original project: &apos;Banco-Serviço&apos;&#x0A;- Original element: &apos;threeway.projeto.service.excecoes.ValorJaExistenteException&apos;&#x0A;- Renamed element: &apos;threeway.projeto.service.excecoes.CPFJaCadastradoException&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ValorJaExistenteException&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;threeway.projeto.service.excecoes{ValorJaExistenteException.java[ValorJaExistenteException" matchStrategy="1" name="CPFJaCadastradoException" qualified="false" references="true" similarDeclarations="false" stamp="1489082798158" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,14 @@
+package threeway.projeto.service.excecoes;
+
+public class ValorJaExistenteException extends Exception{
+	
+	
+	public CpfJaExistenteException() {
+		super("Saldo Insuficiente.");
+	}
+	
+	public SaldoInsuficienteException(String mensagem) {
+		super(mensagem);
+	}
+
+}
