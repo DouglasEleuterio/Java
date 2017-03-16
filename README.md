@@ -19,4 +19,9 @@
 ### Fazendo fork bitbucket para github ###
 
 * o usuário bitbucket bb.java.3way@gmail.com deve ser usado pelo instrutor
-* senha: 3way@net.34d. 
+* senha: 3way@net.34d.
+* O instrutor deve fazer um fork para seu github
+REFERÊNCIA https://gist.github.com/jcaraballo/1982605 
+no caso estamos fazendo o contrario bitbucked -> github
+
+*Os alunos não terão acesso a esse repositorio portanto o instrutor deve orienta-los a fazer um fork a partir de seu github público.
