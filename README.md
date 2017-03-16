@@ -1,29 +1,22 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### CODIGO FONTE DOS LABORATORIOS JAVA ###
 
-### How do I get set up? ###
+* Modulo 1 - Java Orientacao a Objetos
+* Modulo 2 - Java Web
+* Version: 2017/03/15 rv.2
+* [Repositorio Git Bitbucket](https://treinamento3way@bitbucket.org/treinamento3way/)
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Como usar ###
 
-### Contribution guidelines ###
+* O aluno deve usar somente como referência.
+* O lab1 serve como referência para construção do lab2
+* Os códigos devem ser importados para um novo projeto 
+* O instrutor deve orientar seu aluno a fazer um fork do bitbucket para github
 
-* Writing tests
-* Code review
-* Other guidelines
+### Fazendo fork bitbucket para github ###
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* o usuário bitbucket bb.java.3way@gmail.com deve ser usado pelo instrutor
+* senha: 3way@net.34d. 
