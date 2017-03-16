@@ -18,7 +18,11 @@
 
 ### Fazendo fork bitbucket para github ###
 
-* o usuário bitbucket bb.java.3way@gmail.com deve ser usado pelo instrutor
+* o usuário bitbucket bb.java.3way@gmail.com deve ser usado para fazer login no bitbucket
+* o uername no git é instrutoresjava3way, ex:
+
+git clone https://instrutoresjava3way@bitbucket.org/treinamento3way/java.git
+
 * senha: 3way@net.34d.
 * O instrutor deve fazer um fork para seu github
 REFERÊNCIA https://gist.github.com/jcaraballo/1982605 
