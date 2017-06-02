@@ -4,7 +4,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
+<h:head>
+		<title><ui:insert name="titulo">Livraria</ui:insert></title>
+
+		<!-- Resetar as configurações iniciais de estilo -->
+		<h:outputStylesheet library="css" name="reset.css"/>
+
+		<!-- Adicionar o bootstrap ao nosso projeto -->
+		<h:outputStylesheet library="css" name="bootstrap.css"/>
+
+		<!-- Adicionar nosso arquivo css ao template do projeto -->
+		<h:outputStylesheet library="css" name="estilo.css"/>
+	</h:head>
 <h:body>
 	<div class="page">
 
