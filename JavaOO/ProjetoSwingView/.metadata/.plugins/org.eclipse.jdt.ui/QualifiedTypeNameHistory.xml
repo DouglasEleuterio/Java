@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javafx.application.Application"/>
+<fullyQualifiedTypeName name="threeway.projeto.gui.DialogAbrirConta"/>
+<fullyQualifiedTypeName name="threeway.projeto.service.ContaService"/>
+<fullyQualifiedTypeName name="threeway.projeto.modelo.Cliente"/>
+<fullyQualifiedTypeName name="threeway.projeto.gui.Inicial"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+</qualifiedTypeNameHistroy>
