@@ -1,6 +1,8 @@
 package iotmanager.modelo;
 
-public interface Entidade {
+import java.io.Serializable;
+
+public interface Entidade extends Serializable{
 	
 	Long getIdentificador();
 

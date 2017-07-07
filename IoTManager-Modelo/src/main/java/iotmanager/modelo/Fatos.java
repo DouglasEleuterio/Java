@@ -64,12 +64,14 @@ public class Fatos implements Entidade {
 	public void setSensor(String sensor){
 		this.sensor = sensor;
 	}
-	
-	public String getInformacoes(){
+
+	public String getInformacao() {
 		return informacao;
 	}
-	
-	public void setInformacao(String informacao){
+
+	public void setInformacao(String informacao) {
 		this.informacao = informacao;
 	}
+	
+
 }

@@ -51,8 +51,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${listarFatosTudo}" var="fatos">
+						<c:forEach items="${listarFatosTudo}" var="fatos" varStatus="count">
 							<tr>
+								<td width="15%">
+									${count.index}
+								</td>
 								<td width="15%">
 									${fatos.codigo}
 								</td>
