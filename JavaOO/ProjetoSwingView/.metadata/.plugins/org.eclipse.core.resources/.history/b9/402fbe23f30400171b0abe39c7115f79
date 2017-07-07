@@ -1,0 +1,14 @@
+package threeway.projeto.service.excecoes;
+
+public class ValorJaExistenteException extends Exception{
+	
+	
+	public ValorJaExistenteException() {
+		super("CPF ja cadastrado.");
+	}
+	
+	public ValorJaExistenteException(String mensagem) {
+		super(mensagem);
+	}
+
+}
